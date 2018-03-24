@@ -1,0 +1,56 @@
+
+# SEO settings
+title: "Netcracker"
+title2: " Sumy Programming contest" # default: ""
+description: "NetCracker corp. feat Sumy State University presents: task for programming contest."
+keywords: "NetCracker , Sumy State University,task, programming, contest"
+url: https://potapuff.github.io/ssu-programming-contest
+baseurl: "" # apply repo name if use it under gh-pages branch
+# baseurl: null # apply null if repo name is something like username.github.io
+
+google_analytics: UA-116366033-1'
+
+repo: https://github.io/potapuff/ssu-programming-contest
+disqus_shortname: "NC_Sumy_Programming_contest"
+comments: true
+
+# Build settings
+permalink   : /:year/:title/
+markdown    : kramdown
+highlighter : rouge
+
+source: ./
+#source: C:/Users/User/RubymineProjects/ssu-programming-contest/
+destination: ./_site
+
+# Sass configuration
+sass:
+  sass_dir: assets/scss
+  style: compressed # expanded
+
+# Author settings
+author:
+  name     : "Kuzikov Borys"
+  job      : "DB Trainer"
+  bio      : "Netcracker и <span title='Sumy State University'>Сумской государственный университет</span> с радостью представляет задания наших олимпиад по программированию. Качай мозги, получай довольствие!"
+  thumb    : /images/author.jpg
+  email    : potapuff@gmail.com
+  url      : http://heiswayi.github.io
+
+# social settings
+og_locale: "uk_UA"
+twitter_site: ""
+
+gems:
+  - bourbon
+  - jekyll-paginate
+
+# navbar pages
+navbar:
+  - slug : about
+    title: About
+  - slug : blog
+    title: Blog
+
+exclude: ["gulp", "node_modules", "bower", "bower_components", "config.rb", "src", "Gemfile", "Gemfile.lock", ".rvmrc", ".rbenv-version", "package.json", "gulpfile.js", "README.md", "Rakefile", "changelog.md"]
+    

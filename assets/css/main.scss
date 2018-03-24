@@ -1,0 +1,193 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+@charset "utf-8";
+@import "main";
+
+@font-face {
+  font-family: 'digital';
+  src: url('/assets/fonts/digital.ttf');
+}
+
+.tt {
+  font-family: monospace;
+}
+
+em {
+  color: #777;
+}
+
+abbr {
+  border-bottom: 1px dotted black;
+  cursor: help;
+}
+
+#body tr {
+  vertical-align: top;
+}
+
+#main {
+  margin-left: 250px;
+}
+
+#main > h2 {
+  font-size: 110%;
+  color: white;
+  font-weight: normal;
+  margin: 1em 1em .5em 1em;
+}
+
+#content {
+  padding: 1em 2em;
+  padding-top: 0;
+  background-color: #eee;
+  border: 1px solid #CCCCCC;
+  margin: .5em;
+  border-radius: 5px;
+}
+
+#content form {
+  background: #ddd;
+  padding: 1em;
+  border-left: .5em solid #99e;
+}
+
+hr {
+  margin: 1em 0;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+
+.mono { font-family: monospace; }
+
+#answer-form {
+  margin: 1em 0;
+}
+
+.frame input:focus {
+  box-shadow: 0 0 5px white;
+}
+.frame textarea,
+.frame input {
+  width: 100%;
+  border: 1px solid white;
+  background: #AABABF;
+  margin-bottom: 1em;
+  padding: .2em .6em;
+  font-family: monospace;
+}
+.frame button {
+  background: #000000;
+  border: thin solid #FFFFFF;
+  box-shadow: 0 0 5px #000000;
+  color: #FFFFFF;
+  margin: 0;
+  padding: 0.5em 2em;
+  border-radius: 5px;
+}
+.frame label {
+  font-weight: bold;
+}
+
+.error {
+  color: red;
+  font-style: italic;
+  margin: 0 0 1em 0;
+}
+
+.correct, .wrong {
+  font-style: Italic;
+  width: 30em;
+  overflow: auto;
+  margin-top: .2em;
+}
+
+.first { color: #0a0; }
+.second { color: #aa0; }
+.third{ color: #a00; }
+
+.correct {
+  color: green;
+}
+.wrong {
+  color: red;
+}
+
+.tt {
+  background: white;
+  padding: 0 .3em;
+}
+
+div#message {
+  margin-top: 1em;
+}
+div#message li {
+  margin-left: 0;
+}
+
+pre.code {
+  box-shadow: 0 0 3px #555;
+}
+
+.code {
+  width: 95%;
+  overflow: auto;
+  background: white;
+  padding: .5em 1em;
+}
+p.code {
+  font-family: "Consolas";
+  box-shadow: 0 0 3px #555;
+  overflow: auto;
+}
+
+.code i {
+  color: #777;
+}
+
+textarea.code {
+  height: 20em;
+}
+
+textarea.wide{
+  min-height: 150px;
+}
+.wide{
+  width:100%;
+}
+.hide {
+  display:none;
+}
+.mono {
+  font-family:"Courier New", Courier, "Lucida Console", Monaco, monospace;
+  overflow: auto;
+  white-space: pre;
+}
+
+span.mono{ background: #FFF; border:1px solid #333; white-space: nowrap; padding: 2px; margin:2px;}
+
+.hiddible{
+  box-shadow: 0 0 3px #555;
+  width: 95%;
+  overflow: auto;
+  background: white;
+  padding: .5em 1em;
+}
+
+.download {color:red}
+.download img {vertical-align:middle;}
+
+.table {
+  border-collapse: collapse;
+}
+
+.table, .table  th, .table td {
+  border: 1px solid black;
+}
+
+sub {
+  vertical-align: sub;
+}
+.disclamer{
+  color:lightblue;
+}

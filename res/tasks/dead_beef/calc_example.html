@@ -1,0 +1,307 @@
+<html>
+<head>
+  <meta charset='UTF-8'>
+  <style>
+body{ 
+  background: #DDD;
+}
+
+#number, #calculator select, #calculator option, #example select, #example option{
+    font-family: 'digital', monospace;
+    color: #ef6c00;
+	font-size: 30px;
+	
+}
+  
+#number, #calculator select, #example select {
+    display: inline-block;
+}
+
+#calculator select, #calculator option, #example select {
+    border:none;
+    background:inherit;
+    padding:0;
+	padding-left:5px;	
+    margin: 0;
+    background: inherit;
+    border:none;
+    outline:none;
+    cursor:pointer;
+	font-size: 25px;
+}
+  
+#calculator {
+	width: 480px;
+	height: auto;
+	
+	margin: 100px auto;
+	padding: 20px 20px 9px;
+	
+background: -webkit-radial-gradient(center, circle, rgba(255,255,255,.35), rgba(255,255,255,0) 20%, rgba(255,255,255,0) 21%), -webkit-radial-gradient(center, circle, rgba(0,0,0,.2), rgba(0,0,0,0) 20%, rgba(0,0,0,0) 21%), -webkit-radial-gradient(center, circle farthest-corner, #f0f0f0, #c0c0c0);
+background-size: 10px 10px, 10px 10px, 100% 100%;
+background-repeat: repeat, repeat, no-repeat;
+background-position: 1px 1px, 0px 0px, center center;
+
+	border-radius: 3px;
+	box-shadow: 0px 4px #009de4, 0px 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+.top span.clear {
+	float: left;
+}
+
+@font-face {
+  font-family: 'digital';
+  src: url('./digital.ttf');
+}
+
+.top .screen {
+	height: 40px;
+	width: 357px;
+	
+	float: right;
+	
+	padding: 0 10px;
+	
+	background: rgb(92, 87, 87);
+	border-radius: 3px;
+	box-shadow: inset 0px 4px rgba(0, 0, 0, 0.2);
+	
+	font-size: 17px;
+	line-height: 40px;
+	color: orange;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+	text-align: right;
+    margin-right: 10px;
+}
+
+.keys, .top {overflow: hidden;}
+
+.keys span, .top span.clear {
+	float: left;
+	position: relative;
+	top: 0;
+	
+	cursor: pointer;
+	
+	width: 66px;
+	height: 36px;
+	
+	background: white;
+	border-radius: 3px;
+	box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
+	
+	margin: 0 7px 11px 0;
+	
+	color: #888;
+	line-height: 36px;
+	text-align: center;
+	
+	user-select: none;
+
+	transition: all 0.2s ease;
+}
+
+.keys span.eval {
+	background: #f1ff92;
+	box-shadow: 0px 4px #9da853;
+	color: #888e5f;
+}
+
+.keys span:hover {
+	background: #9c89f6;
+	box-shadow: 0px 4px #6b54d3;
+	color: white;
+}
+
+.keys span.eval:hover {
+	background: #abb850;
+	box-shadow: 0px 4px #717a33;
+	color: #ffffff;
+}
+
+.top span.clear {
+	background: #ff9fa8;
+	box-shadow: 0px 4px #ff7c87;
+	color: white;
+}
+
+.top span.clear:hover {
+	background: #f68991;
+	box-shadow: 0px 4px #d3545d;
+	color: white;
+}
+
+.keys span:active {
+	box-shadow: 0px 0px #6b54d3;
+	top: 4px;
+}
+
+.keys span.eval:active {
+	box-shadow: 0px 0px #717a33;
+	top: 4px;
+}
+
+.top span.clear:active {
+	top: 4px;
+	box-shadow: 0px 0px #d3545d;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	
+	font: bold 14px Arial, sans-serif;
+}	 
+.red{color:red};
+
+.mono {
+	font-family:"Courier New", Courier, "Lucida Console", Monaco, monospace;
+	overflow: auto;
+	white-space: pre;
+	border:1px solid #aaa;
+	background: #ddd;
+}
+
+#example{
+  text-align:center;
+  margin-top:45px;
+}
+
+#example p{
+  font-size:150%;
+}
+
+#example .keys span{
+    float: none;
+    position: relative;
+    top: 0;
+	min-width: 66px;
+	mix-height: 36px;
+	display:inline-block;
+	}
+#example option, #example select  {
+  background: rgb(92, 87, 87);
+}
+  </style>
+</head>
+<body>
+<div id='example'>
+  <p>Давайте представим, что нам нужно получить из 
+  <span class='mono'>b<span class='red'>e</span>d<sub>16</sub></span>&rightarrow;<span class='mono'>b<span class='red'>a</span>d<sub>14</sub></span> 
+  </p>
+  <p>Для этого достаточно нажать:</p>
+  <p></p>
+  <div class='keys'>
+  <span>6</span>&rightarrow;
+  <select><option>10</option></select>&rightarrow;
+  <span>9</span>&rightarrow;
+  <select><option>5</option></select>&rightarrow;
+  <span>14</span>
+  </div>
+</div>
+<div id='calculator'>
+  <div class='top'> 
+  <span class="clear" onClick='reset()'>C</span>
+  <div class='screen'>
+	   <div  id='number'></div>
+       <select id='radix' onChange='pretend()'>  </select>
+	</div>
+  </div>
+<div id='buttons' class="keys"></div>
+</div>
+<script>
+
+   Array.prototype.max = function() {
+     var str = this[0];
+	 for (var i = 0; i< this.length; i++){
+	    str = (str < this[i]) ? this[i] : str;
+	 }
+	 return str;
+   };
+
+   var a = {};
+   var max_radix = 16;
+   
+   var number  = document.getElementById('number');
+   var radix   = document.getElementById('radix');
+   var buttons = document.getElementById('buttons');
+
+   var options = '';
+   var actinos = '';
+   for (var i=2; i<=max_radix; i++){
+	   options += '<option value="'+i+'" id="r'+i+'">' +i+'</option>';
+	   actinos += '<span onclick="setRadix('+i+')" id="k'+i+'">'+i+'</span>' 
+   }
+   radix.innerHTML   = options;
+   buttons.innerHTML = actinos;
+   
+   function lock(){
+      document.getElementById('buttons').style.display = 'none';		   
+   }
+   
+   function unlock(){
+ 	   document.getElementById('buttons').style.display = '';		   
+	}
+   
+   function reset(){
+     a = {
+        number: "BED",
+        real_radix: 16,
+        minRadix(){
+          var min_radix = this.number.split("").max();
+	      return parseInt(min_radix,max_radix)+1;
+        },
+        toRadix(radix){
+		  var tmp = parseInt(this.number,this.real_radix);
+		  if (tmp.toString(this.real_radix) != number){
+		     tmp.number = 'NaN';
+		  }
+          this.number = tmp.toString(radix);
+	      this.real_radix = radix;
+	      return this; 
+        },
+        pretendRadix(radix){
+          if (radix < this.minRadix()){
+	        this.number = 'NaN';
+	      }
+          this.real_radix = radix;
+	      return this;
+        }
+     };
+	 unlock();
+     update();  
+   }
+   
+   function update(){
+       if (a.number === 'NaN'){
+	      return lock();
+	   }
+       number.innerText = a.number;
+	   radix.selectedIndex = a.real_radix-2;
+	   var min_value = a.minRadix();
+	   for (var i=2; i<=max_radix;i++){
+	       if (i < min_value){
+		      document.getElementById('r'+i).style.display = 'none';		   
+	       }
+           else  {
+   		      document.getElementById('r'+i).style.display = '';		   
+	       }
+		}  
+   } 
+   
+   function setRadix(radix){
+	   a.toRadix(radix);
+	   update();
+   }
+   function pretend(){
+       var value = radix.options[radix.selectedIndex].value;
+       a.pretendRadix(value);
+	   update();
+   }
+   
+   reset();
+</script>
+</body>
+</html>

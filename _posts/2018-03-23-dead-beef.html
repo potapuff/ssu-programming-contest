@@ -1,0 +1,309 @@
+---
+layout: post
+title: "DEAD -> BEEF"
+tags: [2017]
+comments: true
+description: "If you have a Guest post.."
+author: Kuzikov Borys
+page_image: 'test.png'
+---
+
+<style>
+    #number, #calculator select, #calculator option {
+        font-family: 'digital', monospace;
+        color: #ef6c00;
+        font-size: 30px;
+
+    }
+
+    #number, #calculator select {
+        display: inline-block;
+    }
+
+    #calculator select, #calculator option {
+        border:none;
+        background:inherit;
+        padding: 0 0 0 5px;
+        margin: 0;
+        outline:none;
+        cursor:pointer;
+        font-size: 25px;
+    }
+
+    #calculator {
+        width: 480px;
+        height: auto;
+
+        margin: 100px auto;
+        padding: 20px 20px 9px;
+
+        background: -webkit-radial-gradient(center, circle, rgba(255,255,255,.35), rgba(255,255,255,0) 20%, rgba(255,255,255,0) 21%), -webkit-radial-gradient(center, circle, rgba(0,0,0,.2), rgba(0,0,0,0) 20%, rgba(0,0,0,0) 21%), -webkit-radial-gradient(center, circle farthest-corner, #f0f0f0, #c0c0c0);
+        background-size: 10px 10px, 10px 10px, 100% 100%;
+        background-repeat: repeat, repeat, no-repeat;
+        background-position: 1px 1px, 0 0, center center;
+
+        border-radius: 3px;
+        box-shadow: 0 4px #009de4, 0 10px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .top span.clear {
+        float: left;
+    }
+
+    .top .screen {
+        height: 40px;
+        width: 357px;
+
+        float: right;
+
+        padding: 0 10px;
+
+        background: rgb(92, 87, 87);
+        border-radius: 3px;
+        box-shadow: inset 0 4px rgba(0, 0, 0, 0.2);
+
+        font-size: 17px;
+        line-height: 40px;
+        color: orange;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        text-align: right;
+        margin-right: 10px;
+    }
+
+    .keys, .top {overflow: hidden;}
+
+    .keys span, .top span.clear {
+        float: left;
+        position: relative;
+        top: 0;
+
+        cursor: pointer;
+
+        width: 66px;
+        height: 36px;
+
+        background: white;
+        border-radius: 3px;
+        box-shadow: 0 4px rgba(0, 0, 0, 0.2);
+
+        margin: 0 7px 11px 0;
+
+        color: #888;
+        line-height: 36px;
+        text-align: center;
+
+        user-select: none;
+
+        transition: all 0.2s ease;
+    }
+
+    .keys span.eval {
+        background: #f1ff92;
+        box-shadow: 0 4px #9da853;
+        color: #888e5f;
+    }
+
+    .keys span:hover {
+        background: #9c89f6;
+        box-shadow: 0 4px #6b54d3;
+        color: white;
+    }
+
+    .keys span.eval:hover {
+        background: #abb850;
+        box-shadow: 0 4px #717a33;
+        color: #ffffff;
+    }
+
+    .top span.clear {
+        background: #ff9fa8;
+        box-shadow: 0 4px #ff7c87;
+        color: white;
+    }
+
+    .top span.clear:hover {
+        background: #f68991;
+        box-shadow: 0 4px #d3545d;
+        color: white;
+    }
+
+    .keys span:active {
+        box-shadow: 0 0 #6b54d3;
+        top: 4px;
+    }
+
+    .keys span.eval:active {
+        box-shadow: 0 0 #717a33;
+        top: 4px;
+    }
+
+    .top span.clear:active {
+        top: 4px;
+        box-shadow: 0 0 #d3545d;
+    }
+
+</style>
+
+<p> Банкир: <br/>&ndash; мы рады представить Вашему вниманию новые кредитные карточки.
+    Обратите внимание: теперь на них не только отображается счет!
+    Теперь вы можете сами выбрать, в какой системе счисления его отобразить.
+    Специально к этому грандиозному событию мы дарим путешствие во Флостонский рай с неподражаемым Руби Роудом всем, у кого на счету
+    <span class="mono"><span class='box finish'>???</span><sub><span class='box finish_radix'>???</span></sub></span> кредитов.
+</p>
+<p>
+    Хакер: <br/> &ndash; раз плюнуть! Мы легко получим из  <span class="mono"><span class='box start'>???</span><sub><span class='box start_radix'>???</span></sub></span>,
+    которые есть на карте, необходимые. <span class="mono"><span class='box finish'>???</span><sub><span class='box finish_radix'>???</span></sub></span>.
+    Для этого мы прикрутили к карточке интерфейс подмены основания системы счисления.
+    <a href="/res/tasks/dead_beef/calc_example.html" target="blank">Смотри, как это работает.</a>
+    Будь осторожен! Служба безопасности может обратить внимание на цепочки больше <span class="mono">30</span> действий - пользуйся кнопкой
+    <span class="keys"><span style="background: #ff9fa8; box-shadow: 0 4px #ff7c87; color:white;float:none; display:inline-block;">C</span></span> для возвращения к первоначальному состоянию.
+    Также, особо внимательно следят за суммами больше    <span class="mono">65535<sub>10</sub></span> кредитов - не заходи за этот предел, а то не поздоровится!.
+</p>
+
+
+<div id="task">
+    <div id='calculator'>
+        <div class='top'>
+            <span class="clear" onClick='reset()'>C</span>
+            <div class='screen'>
+                <div  id='number'></div>
+                <select id='radix' onChange='pretend()'>  </select>
+            </div>
+        </div>
+        <div>
+            Выберите, в какой системе счисления отобразить:
+        </div>
+        <div id='buttons' class="keys"></div>
+    </div>
+    <input type="hidden"  name="answer" id="answer">
+</div>
+
+<script>
+    Array.prototype.max = function() {
+        var str = this[0];
+        for (var i = 0; i< this.length; i++){
+            str = (str < this[i]) ? this[i] : str;
+        }
+        return str;
+    };
+
+    Array.prototype.random = function() {
+        return this[Math.floor((Math.random()*this.length))];
+    };
+
+    function lock(){
+        alert('Fail');
+        list = [];
+        document.getElementById('buttons').style.display = 'none';
+    }
+
+    function unlock(){
+        list = [];
+        document.getElementById('buttons').style.display = '';
+    }
+
+    function reset(){
+        a = {
+            number: start,
+            real_radix: start_radix,
+            finish: finish,
+            minRadix(){
+                var min_radix = this.number.split("").max();
+                return parseInt(min_radix,16)+1;
+            },
+            toRadix(radix){
+                var tmp = parseInt(this.number,this.real_radix);
+                if (tmp.toString(this.real_radix) != number){
+                    tmp.number = 'NaN';
+                }
+                this.number = tmp.toString(radix);
+                this.real_radix = radix;
+                return this;
+            },
+            pretendRadix(radix){
+                if (radix < this.minRadix()){
+                    this.number = 'NaN';
+                }
+                this.real_radix = radix;
+                return this;
+            }
+        };
+        list = [];
+        unlock();
+        update();
+    }
+
+    function update(){
+        if (list.length > 30) {
+            return lock();
+        }
+        if (a.number === 'NaN'){
+            return lock();
+        }
+        number.innerText = a.number;
+        radix.selectedIndex = a.real_radix-2;
+        var min_value = a.minRadix();
+        for (var i=2; i<=16;i++){
+            if (i < min_value){
+                document.getElementById('r'+i).style.display = 'none';
+            }
+            else  {
+                document.getElementById('r'+i).style.display = '';
+            }
+        }
+        if (a.number.toLowerCase() === a.finish){
+            alert('Success!');
+            $('#answer').val(list.toString());
+            /*$('#answer-form').submit();*/
+        }
+    }
+
+    function setRadix(radix){
+        a.toRadix(radix);
+        list.push(-radix);
+        update();
+    }
+    function pretend(){
+        var value = radix.options[radix.selectedIndex].value;
+        a.pretendRadix(value);
+        list.push(value);
+        update();
+    }
+
+    function init() {
+        var options = '';
+        var actions = '';
+        for (var i=2; i<=16; i++){
+            options += '<option value="'+i+'" id="r'+i+'">' +i+'</option>';
+            actions += '<span onclick="setRadix('+i+')" id="k'+i+'">'+i+'</span>'
+        }
+        radix.innerHTML   = options;
+        buttons.innerHTML = actions;
+        $(".box.start").each(function(){this.innerText = start});
+        $(".box.start_radix").each(function(){this.innerText = start_radix});
+        $(".box.finish").each(function(){this.innerText = finish});
+        $(".box.finish_radix").each(function(){this.innerText = finish_radix});
+    }
+
+    var a = {};
+    var list =[];
+
+    var number  = document.getElementById('number');
+    var radix   = document.getElementById('radix');
+    var buttons = document.getElementById('buttons');
+
+    function load() {
+        $.ajax('/res/tasks/dead_beef/task.task').done(function(data) {
+            var result = data;
+            result = result.split(/[\r\n]+/).random().split(" ");
+            start = result[0];
+            start_radix = result[1];
+            finish = result[2];
+            finish_radix = result[3];
+            init();
+            reset();
+        });
+    }
+    load();
+</script>
+

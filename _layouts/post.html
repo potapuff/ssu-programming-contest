@@ -1,0 +1,19 @@
+---
+layout: default
+---
+
+<article class="post container" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <p class="post-meta"><time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%b %-d, %Y" }}</time>{% if page.author %} • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ page.author }}</span></span>{% endif %}</p>
+    <h1 class="post-title" itemprop="name headline">{{ page.title }}<a href="#disclamer" class="disclamer">*</a></h1>
+  </header>
+  <div class="post-content" itemprop="articleBody">
+    {{ content }}
+    <p><a name="disclamer" class="disclamer">*</a>
+      Текст задания и тестовые примеры примеры могут отличаться от использованных в ходе проведения олимпиады. Проверка правильности решения представлена только с целью самопроверки.
+    </p>
+    {% include post-share.html %}
+  </div>
+</article>
+
+{% include comments.html %}

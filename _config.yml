@@ -5,7 +5,7 @@ title2: " Sumy Programming contest" # default: ""
 description: "NetCracker corp. feat Sumy State University presents: task for programming contest."
 keywords: "NetCracker , Sumy State University,task, programming, contest"
 url: https://potapuff.github.io/ssu-programming-contest
-baseurl: "" # apply repo name if use it under gh-pages branch
+baseurl: "https://potapuff.github.io/ssu-programming-contest/" # apply repo name if use it under gh-pages branch
 # baseurl: null # apply null if repo name is something like username.github.io
 
 google_analytics: UA-116366033-1'

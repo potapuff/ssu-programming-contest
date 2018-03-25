@@ -3,9 +3,8 @@ layout: post
 title: "DEAD -> BEEF"
 tags: [2017]
 comments: true
-description: "If you have a Guest post.."
+description: "Задача на перебор. В последний момент мы убрали ее из списка заадний."
 author: Kuzikov Borys
-page_image: 'test.png'
 ---
 
 <style>
@@ -154,7 +153,7 @@ page_image: 'test.png'
     Хакер: <br/> &ndash; раз плюнуть! Мы легко получим из  <span class="mono"><span class='box start'>???</span><sub><span class='box start_radix'>???</span></sub></span>,
     которые есть на карте, необходимые. <span class="mono"><span class='box finish'>???</span><sub><span class='box finish_radix'>???</span></sub></span>.
     Для этого мы прикрутили к карточке интерфейс подмены основания системы счисления.
-    <a href="/res/tasks/dead_beef/calc_example.html" target="blank">Смотри, как это работает.</a>
+    <a href="{{site.baseurl}}/res/tasks/dead_beef/calc_example.html" target="blank">Смотри, как это работает.</a>
     Будь осторожен! Служба безопасности может обратить внимание на цепочки больше <span class="mono">30</span> действий - пользуйся кнопкой
     <span class="keys"><span style="background: #ff9fa8; box-shadow: 0 4px #ff7c87; color:white;float:none; display:inline-block;">C</span></span> для возвращения к первоначальному состоянию.
     Также, особо внимательно следят за суммами больше    <span class="mono">65535<sub>10</sub></span> кредитов - не заходи за этот предел, а то не поздоровится!.
@@ -293,7 +292,7 @@ page_image: 'test.png'
     var buttons = document.getElementById('buttons');
 
     function load() {
-        $.ajax('/res/tasks/dead_beef/task.task').done(function(data) {
+        $.ajax('{{ site.baseurl }}/res/tasks/dead_beef/task.task').done(function(data) {
             var result = data;
             result = result.split(/[\r\n]+/).random().split(" ");
             start = result[0];

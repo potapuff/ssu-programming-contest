@@ -11,7 +11,7 @@ baseurl: "https://potapuff.github.io/ssu-programming-contest/" # apply repo name
 google_analytics: UA-116366033-1'
 
 repo: https://github.io/potapuff/ssu-programming-contest
-disqus_shortname: "NC_Sumy_Programming_contest"
+disqus_shortname: "nc-sumy-programming-contest"
 comments: true
 
 # Build settings

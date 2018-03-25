@@ -8,7 +8,7 @@ url: https://potapuff.github.io/ssu-programming-contest
 baseurl: "https://potapuff.github.io/ssu-programming-contest/" # apply repo name if use it under gh-pages branch
 # baseurl: null # apply null if repo name is something like username.github.io
 
-google_analytics: UA-116366033-1'
+google_analytics: UA-116366033-1
 
 repo: https://github.io/potapuff/ssu-programming-contest
 disqus_shortname: "nc-sumy-programming-contest"

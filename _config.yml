@@ -1,10 +1,10 @@
-
+﻿
 # SEO settings
 title: "Netcracker"
 title2: " Sumy Programming contest" # default: ""
 description: "NetCracker corp. feat Sumy State University presents: task for programming contest."
 keywords: "NetCracker , Sumy State University,task, programming, contest"
-url: https://potapuff.github.io/ssu-programming-contest
+url: https://potapuff.github.io
 #url: http://127.0.0.1:4000/ssu-programming-contest
 baseurl: "/ssu-programming-contest/" # apply repo name if use it under gh-pages branch
 # baseurl: null # apply null if repo name is something like username.github.io

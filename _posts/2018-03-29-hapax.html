@@ -1,0 +1,112 @@
+﻿---
+layout: post
+title: "Гапакс"
+tags: [2017]
+comments: true
+description: "Задача для разгона. И пусть никто не уйдет обиженым!"
+author: Kuzikov Borys
+cover: res/tasks/hapax/logo.jpg
+---
+
+    <style>
+
+        #hapax {
+            background-image: url("{{ site.baseurl }}/res/tasks/hapax/gapax_bg.jpg");
+            background-size: cover;
+            margin: 2em -10em 2em -10em;
+            text-align: center;
+            padding: 3em;
+        }
+
+        #hapax span {
+            position: relative;
+            display: inline-block;
+            padding: .15em;
+            text-decoration: none;
+            color: black;
+            margin-right:10pt;
+            outline:none;
+        }
+
+        #hapax span:hover {
+            color: black;
+            text-shadow: 0px -1px 2px #fff, 0px -1px 5px #FF3, 0px -5px 10px   #F90, 0px -10px 20px #C33;
+        }
+
+        #hapax span i {
+            display:none;
+        }
+
+        #hapax span:hover i{
+            display:inline;
+            padding: 5px;
+            position: absolute;
+            color: #111;
+            border: 1px solid #DCA;
+            background:rgba(255,255,220,0.7);
+            border-radius: 4px;
+            box-shadow: 5px 5px 8px #CCC;
+            z-index: 50 ;
+        }
+		
+		#example {background:whitesmoke;}
+    </style>
+	
+    <p>Нам в руки попал странный документ.
+        Он откроет нам ключ к кладу.
+        Язык документа настолько древний, что прочесть его никто не может.
+        Нам поможет то, что секретное слово повторяется в тексте ровно один раз.
+        Выберите его.
+        Помните, что документ настолько старый, что может рассыпаться в любую минуту - не стоит тыкать в него лишний раз.</p>
+    <p><a name='m' href="#m" onclick="$('#example').toggleClass('hide')">Почему задание так называется?</a> </p>
+    <p id="example" class="mono hide hiddible" style="white-space: pre-wrap;">
+Га́пакс (греч. ἅπαξ λεγόμενον — «только раз названное») — слово, встретившееся в некотором корпусе текстов только один раз. Так, можно сказать, что боливар («шляпа определённого фасона») — гапакс языка Пушкина (оно встречается только в знаменитом месте из «Евгения Онегина»). Термин «гапакс» популярен в исследованиях Библии, в которой обнаружено несколько сотен подобных слов.
+Есть и своеобразные буквы-гапаксы. Например Мультиокулярная О встречается только в фразе во фразе «серафими много&#42606;читїи» (многоокие серафимы).
+   </p>
+
+    <p><a download href="#" class='download' download='list.task' id="download">
+	   <img src='{{ site.baseurl }}/res/d.png'/>скачать</a> документ одним файлом. Слова разделены пробелом.</p>
+    <p>Выберите секретное слово. При наведении рядом со словом появляется его порядковый номер в тексте.</p>
+    <div id="hapax">
+        <div id='holder'>    </div>
+    </div>
+
+<script>
+
+    function init() {
+	    document.getElementById('download').setAttribute('href', '{{ site.baseurl }}/res/tasks/hapax/'+variant+'.task');
+   
+        var holder = document.getElementById('holder');
+        var final="";
+        for (var index = 0; index < text.length; ++index) {
+            final += '<span data-id="'+(index)+'">'+text[index]+'<i>'+index+'</i></span> ';
+        }
+        holder.innerHTML=final;
+		console.log($('#hapax span'));
+	    $('#hapax span').on('click', function(){
+		    console.log(this);
+			var answer = $(this).data('id');
+			var string = text[parseInt(answer)];
+			var count = 0;
+			for (var i =0; i< text.length; i++){
+				if (text[i] === string) { count += 1;}
+			}
+			alert((count == 1) ? 'Success!' : 'Fail!');
+			return false;
+		});
+    }
+
+    var variant = 1;
+	var text = [];
+	
+    function load() {
+	    variant = Math.floor((Math.random() * 10) + 1);
+        $.ajax('{{ site.baseurl }}/res/tasks/hapax/'+variant+'.task').done(function(data) {
+            var result = data;
+			text = data.split(' ');
+            init();
+			});
+    }
+    load();
+</script>
+

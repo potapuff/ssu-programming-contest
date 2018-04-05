@@ -1,0 +1,65 @@
+﻿---
+layout: post
+title: "Числа прописью"
+tags: [2017]
+comments: true
+description: "Замена и вычисления. Не забывате о приоритете операций."
+author: Kuzikov Borys
+cover: res/tasks/recipe/logo.jpg
+---
+    <style>
+        .mono{white-space: normal;}
+        span.mono{ background: #cfd8dc; border:1px solid #333; white-space: nowrap; padding: 2px; margin:2px;}
+		#submit {background:#b9f6ca; border: 1px #00e676 solid; padding: 0.5rem 2rem 0.5rem 2rem; margin: 0.5rem 0 0.5rem 0;}
+		#submit:hover{background:#00e676;}
+    </style>
+
+    <p>
+        Для надежности в бухгалтерских документах числа записуются прописью.
+        Обойдя все инстанции мы получили общий чек со всеми платежами.
+        В нем есть как платежи (<span class="mono"> + триста пять</span>), так и возвраты денег (<span class="mono"> - восемьдесят восемь</span>).
+        Подсчитайте общую сумму к оплате. Не ошибитесь ни на один кредит, иначе все придется повторить сначала!
+    </p>
+    <p>
+        К сведенью, ни одна из инстанций не может выставить счет больше 10000 кредитов. Но, общая сумма по чеку может быть значительно больше.
+    </p>
+    <p>
+	    <a download href="???" class='download' download='list.task' id="download">
+	      <img src='{{ site.baseurl }}/res/d.png'/>
+		  скачать
+		</a> все данные о платежах</p>
+       <textarea class="wide mono"  readonly="true" id="task"></textarea>
+    <p><label>Итоговая сумма к оплате (число, например <span class="mono">12352</span>):</label></p>
+    <p><input type="text"  name="answer" id="answer" style='width:100%'></p>
+    <button id='submit'>Оплатить</button>
+
+<script>
+
+    function init() {
+	    document.getElementById('download').setAttribute('href', '{{ site.baseurl }}/res/tasks/recipe/'+variant+'.task');
+ 	    document.getElementById('task').value = text;
+ 
+	    $('#submit').on('click', function(){
+		    var answer = document.getElementById('answer').value;
+			alert(parseInt(answer) === right ? 'Success!' : 'Fail!');
+			return false;
+		});
+    }
+
+    var variant = 1;
+	var text = "";
+    var right;;
+	
+    function load() {
+	    variant = Math.floor((Math.random() * 10) + 1);
+        $.ajax('{{ site.baseurl }}/res/tasks/recipe/'+variant+'.task').done(function(data) {
+            text = data;
+            $.ajax('{{ site.baseurl }}/res/tasks/recipe/'+variant+'.sol').done(function(data) {
+			  right = parseInt(data);
+              init();
+			});
+		});
+    }
+    load();
+</script>
+

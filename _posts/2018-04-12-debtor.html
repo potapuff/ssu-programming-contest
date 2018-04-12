@@ -1,0 +1,95 @@
+﻿---
+layout: post
+title: "Должники"
+tags: [2017]
+comments: true
+description: "Задача в поддержку борьбы с азартными играми"
+author: Kuzikov Borys
+cover: res/tasks/recipe/logo.jpg
+---
+    <style>
+        .example p span, span.example {background:#EEE; border:1px solid #999; padding:2px; margin: 2px; font-family: "Calibri", sans-serif;}
+        .example p span.p {background:#AFA; Border:1px solid #ddd; padding:2px; margin: 2px; font-family: "Calibri", sans-serif;}
+        .example p span.m {background:#FAA; Border:1px solid #ddd; padding:2px; margin: 2px; font-family: "Calibri", sans-serif;}
+		.mono{white-space: pre;}
+        span.mono{ background: #cfd8dc; border:1px solid #333; white-space: nowrap; padding: 2px; margin:2px;}
+		#submit {background:#b9f6ca; border: 1px #00e676 solid; padding: 0.5rem 2rem 0.5rem 2rem; margin: 0.5rem 0 0.5rem 0;}
+		#submit:hover{background:#00e676;}
+
+    </style>
+	
+    <p>
+     Нужно пробраться на секретный объект. Но охрана  как никогда бдительна. К счастью, есть одно слабое место.
+     Охранники  очень азартны. А так как выходить им никуда нельзя, у всех накопилось изрядное количество долгов.
+     Наша резидентура украла список с информацией о всех долгах. Вычислите имя охранника, у которого самый большой долг.
+    </p>
+
+    <p>
+	  <a name='m' onclick="$('#money').toggleClass('hide')">
+	    Скрыть/показать денежные еденицы на планете Х:
+	  </a>
+	</p>
+    <div id='money' class="example hide hiddible">
+        <p><span>1</span> shilling = <span>12</span> pence</p>
+        <p><span>1</span> florin   = <span>2</span> shillings</p>
+        <p><span>1</span> crown    = <span>5</span> shillings</p>
+        <p><span>1</span> pound    = <span>20</span> shillings</p>
+        <p><span>1</span> guinea   = <span>21</span> shillings</p>
+    </div>
+    <p><a name='a'  onclick="$('#example').toggleClass('hide')">Скрыть/показать пример</a></p>
+
+    <div id='example' class=" example hide hiddible">
+        <p>Список долгов:</p>
+        <p>Blake oves Noah 2 guineas 1 shilling 6 pence   (<span>522</span> pence)</p>
+        <p>Noah oves Matthew 3 crowns 1 florin 12 pence   (<span>216</span> pence)</p>
+        <p>Matthew oves Blake 8 crowns 24 pence           (<span>504</span> pence)</p>
+    <hr/>
+        <p>Сводим дебет с кредитом:</p>
+        <p>Blake:  <span title="to Noah" class="m">-522</span> + <span title="from Matthew" class="p">504</span>= <span class="m"> -18</span></p>
+        <p>Noah:   <span title="to Matthew" class="m">-216</span> + <span title="from Blake" class="p">522</span>= <span class="p">306</span></p>
+        <p>Matthew:<span title="to Blake" class="m">-504</span> + <span title="from Noath" class="p">216</span>=<span class="m">-288</span></p>
+    <hr/>
+        <p>Answer:<span>Matthew</span></p>
+    </p>
+    </div>
+
+    <p>Список должников (
+	  <a href="???" class='download' id='download' download='list.task'>
+	  <img src='{{ site.baseurl }}/res/d.png'/>скачать</a> одним файлом) :</p>
+    </p>
+    <textarea class="wide mono" id="task" readonly="true">loading...</textarea>
+
+    <p><label>Имя человека с наибольшим долгом (например, <span class="example">Matthew</span>)</label></p>
+    <p><input type="text" id="answer" style='width:100%'></p>
+    <button id='submit'>Оплатить</button>
+
+
+<script>
+
+    function init() {
+	    document.getElementById('download').setAttribute('href', '{{ site.baseurl }}/res/tasks/debtor/'+variant+'.task');
+		document.getElementById('task').value = text;
+	    $('#submit').on('click', function(){
+		    var answer = document.getElementById('answer').value;
+			alert(answer.trim() === right ? 'Success!' : 'Fail!');
+			return false;
+		});
+    }
+
+    var variant = 1;
+	var text = "";
+    var right;;
+	
+    function load() {
+	    variant = Math.floor((Math.random() * 10) + 1);
+        $.ajax('{{ site.baseurl }}/res/tasks/debtor/'+variant+'.task').done(function(data) {
+            text = data;
+            $.ajax('{{ site.baseurl }}/res/tasks/debtor/'+variant+'.sol').done(function(data) {
+			  right = data.trim();
+              init();
+			});
+		});
+    }
+    load();
+</script>
+

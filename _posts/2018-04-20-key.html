@@ -1,0 +1,89 @@
+﻿---
+layout: post
+title: "Ключ"
+tags: [2017]
+comments: true
+description: "Основано на реальных событиях"
+author: Kuzikov Borys
+cover: res/tasks/key/logo.jpg
+---
+    <style>
+		.example p span, span.example {background:#EEE; border:1px solid #999; padding:2px; margin: 2px; font-family: "Calibri", sans-serif;}
+        .example p span.p {background:#AFA; Border:1px solid #ddd; padding:2px; margin: 2px; font-family: "Calibri", sans-serif;}
+        .example p span.m {background:#FAA; Border:1px solid #ddd; padding:2px; margin: 2px; font-family: "Calibri", sans-serif;}
+		.mono{white-space: pre-line; background:whitesmoke;}
+        span.mono{ background: #cfd8dc; border:1px solid #333; white-space: nowrap; padding: 2px; margin:2px;}
+		#submit {background:#b9f6ca; border: 1px #00e676 solid; padding: 0.5rem 2rem 0.5rem 2rem; margin: 0.5rem 0 0.5rem 0;}
+		#submit:hover{background:#00e676;}
+    </style>
+ 
+    <p>
+     Что произошло один раз, повториться вновь. Ходят легенды о том, что CDN CloudFlare 
+         отдавал клиентам часть памяти, которая могла включать приватные данные.
+     Мы проверили, и чудо: обнаружили в ответах сервера части того, то может быть приватным ключем.
+     Соберите из фрагментов приватный ключ.
+    </p>
+    <p>
+     <a name='m' href="#m" onclick="$('#example').toggleClass('hide')">Показать/скрыть пример приватного ключа</a> ,
+     <a name='m' href="#m" onclick="$('#example_img').toggleClass('hide')">пример данных.</a></p>
+
+    </p>
+    <p id="example" class="mono hide hiddible">
+        -----BEGIN RSA PRIVATE KEY-----
+        MIIBOwIBAAJBALwhfI0aKTylm14tBE32D7bS+vUYTiTvph8htj2lBVApspKGogGy
+        jT3PPT4WVGUXaPhgJHM34llOPWpOy9uf6MMCAwEAAQJAVWdCOm/w3mYzlNoMxTN5
+        yL4YTOFewCfGmwVbzLo4Ij40HAdsJr1BJl3K8Jhm6xPDQiQ7WWx0/b603DC2tfRI
+        WQIhAOcvfWnAJAf7NJfFabucazUEzQoOfzehv6dxuzcpDsLvAiEA0FLwx9wCL8RA
+        nLnB8wsqEgPgXGdJiGzjNVcsFW+jp20CIQDcfzwDn+H9xseLths5eF/8Kn8Rh3Ao
+        9Fnib6QbYUqV+wIhAL2V3Z5k8HB8D7kRrBn9XQoMERDGxrqrLZMLhAj2El95AiAm
+        qnjbm4nNcmdJopUw4H67vYtira0zlTnAGaNr4Dv37A==
+		-----END RSA PRIVATE KEY-----
+    </p>
+    <p id="example_img" class="mono hide hiddible">
+        Обратите внимание что фрагменты могут накладываться, повторятся. В примере зеленая последовательность полностью содержится в красной.
+        <img src="{{ site.baseurl }}/res/tasks/key/example.png"/>
+    </p>
+
+    <p>Фрагменты приватного ключа. Каждый фрагмент с новой строки. Фрагменты разной длины и могут частично или полностью пересекаться.</p>
+    <textarea class="wide mono" id="task" readonly="true">Loadning...</textarea>
+    <p><a download href="???" class='download' id='download'  download='list.task'>
+	   <img src='{{ site.baseurl }}/res/d.png'/>скачать</a> все фрагменты одним файлом
+	</p>
+
+    <label>Ключ (пробелы и переводы строки игнорируются):</label></p>
+    <textarea type="text"  name="answer" id="answer" style='width:100%' rows="10">
+-----BEGIN RSA PRIVATE KEY-----
+....
+-----END RSA PRIVATE KEY-----</textarea>
+    <button  id='submit'>Отправить</button>
+
+
+<script>
+
+    function init() {
+	    document.getElementById('download').setAttribute('href', '{{ site.baseurl }}/res/tasks/key/'+variant+'.task');
+		document.getElementById('task').value = text;
+	    $('#submit').on('click', function(){
+		    var answer = document.getElementById('answer').value;
+			alert(answer.replace(/\W/gi,'') === right ? 'Success!' : 'Fail!');
+			return false;
+		});
+    }
+
+    var variant = 1;
+	var text = "";
+    var right;;
+	
+    function load() {
+	    variant = Math.floor((Math.random() * 10) + 1);
+        $.ajax('{{ site.baseurl }}/res/tasks/key/'+variant+'.task').done(function(data) {
+            text = data;
+            $.ajax('{{ site.baseurl }}/res/tasks/key/'+variant+'.sol').done(function(data) {
+			  right = data.replace(/\W/gi,'');
+              init();
+			});
+		});
+    }
+    load();
+</script>
+

@@ -1,0 +1,110 @@
+﻿---
+layout: post
+title: "Бюрократия"
+tags: [2017]
+comments: true
+description: "Усы и хвост, вот мои документы!"
+author: Kuzikov Borys
+cover: res/tasks/order/logo.jpg
+---
+    <style>
+        span.mono {background:#FFF; border:1px solid #999; padding:2px; margin: 2px; font-family: "Calibri", sans-serif;}
+        .example td {background-color:white;}
+        .example th {background: #97bae4;}
+    </style>
+
+    <p>
+     Что вы знаете о бюрократии? Даже имея на руках билеты, вы не сможете вылететь, пока не обойдете все наши 26 контрольных органов.
+    <p> Нам очень повезло, что мы выиграли билет и будем проходить по упрощенной процедуре!
+     Для нас специально составили список всех организаций (для простоты назовем их буквами от A до Z) и список зависимостей между ними.
+     Запись <span class="mono">А Z</span> обозначает, что для получения разрешения в <span class="mono">Z</span> нужно одобрение от <span class="mono">А</span>.
+     Определите, в каком порядке нужно обойти все из них. Поторопитесь, правила обхода могут измениться!
+    </p>
+
+    <p><a name='m' href="#m" onclick="$('#example').toggleClass('hide')">Скрыть/показать пример:</a></p>
+    <div id="example" class="example hide hiddible">
+    <table>
+        <tr>
+            <th>Входные данные</th>
+            <th>Визуализация</th>
+            <th>Ответ</th>
+        </tr>
+        <tr>
+            <td>
+                <p><span class="mono"> A  B</span></p>
+                <p><span class="mono"> B  C</span></p>
+                <p><span class="mono"> B  D</span></p>
+                <p><span class="mono"> A  D</span></p>
+            </td>
+            <td><img src="{{ site.baseurl }}/res/tasks/order/digraph.png"></td>
+            <td><span class="mono">ABCD</span>  или <span class="mono">ABDC</span> </td>
+        </tr>
+    </table>
+    </div>
+
+    <p>Списко зависимостей, каждая с новой строки:</p>
+    <textarea class="wide mono" id="task" readonly="true">???</textarea>
+
+    <p>
+	  <a download href="#" class='download' id='download' download='list.task'>
+	    <img src='{{ site.baseurl }}/res/d.png'/>скачать</a> список одним файлом
+	</p>
+
+    <p><label>Введите любой подходящий порядок обхода (например <span class="mono">ABCD</span>). Регистр важен, пробелы не допускаются.</label></p>
+    <p><input type="text"  name="answer" id="answer" style='width:100%' onchange="validate()" onkeyup="validate()"></p>
+    <p><button id="send_button" disabled="disabled">Отправить</button>
+       <span id="length"></span>
+    </p>
+
+<script>
+    function validate(){
+        var length = $('#answer').val().length;
+        if (length != 26){
+          $('#send_button').prop( "disabled", true);
+          $('#length').show().text(length+'/26');
+        } else {
+          $('#send_button').prop( "disabled", false);
+          $('#length').hide();
+        }
+    }
+
+    function sendForm() {
+        var result = $('#answer').val().toUpperCase();
+		if (result.length != 26){
+		   alert('Fail');
+		   return;
+		}   
+		for (var i=0; i<rules.length; i+=2){
+		    if (result.indexOf(rules[i]) >= result.indexOf(rules[i+1])){
+			    alert('Fail');
+				return;
+			}
+		}
+        alert('Success');
+    }
+
+
+    function init() {
+	    document.getElementById('download').setAttribute(
+		  'href',
+		  '{{ site.baseurl }}/res/tasks/order/'+variant+'.task'
+		);
+		document.getElementById('task').value = raw;
+	    $('#send_button').on('click', sendForm);
+     }
+
+
+    var variant = 1;
+	var rules = [];
+	var raw;
+	
+    function load() {
+	    variant = Math.floor((Math.random() * 10) + 1);
+        $.ajax('{{ site.baseurl }}/res/tasks/order/'+variant+'.task').done(function(data) {
+            raw = data;
+			rules = raw.split(/[ \r\n]+/);
+            init();
+			});
+    }
+    load();
+</script>
